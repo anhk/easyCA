@@ -18,10 +18,12 @@ Options:
   -h	Show this Help
   -new
     	签发证书
+  -p	签发证书的私钥文件是否需要密码保护
 
 Example:
    easyCA -I                          初始化项目
    easyCA -new -CN foo.jdcloud.local  创建CommonName为foo.jdcloud.local的服务器端证书
+
 ```
 
 # Example
