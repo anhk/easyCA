@@ -35,26 +35,6 @@ Enter Key Passphrase for ./pki/private/ca.key:
 
 # 更新CA证书到操作系统【来自互联网】
 
-## MacOS
-### 添加证书
-```
-sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ~/new-root-certificate.crt
-```
-### 移除证书
-```
-sudo security delete-certificate -c ""
-```
-
-## Windows
-### 添加证书
-```
-certutil -addstore -f "ROOT" new-root-certificate.crt
-```
-### 移除证书
-```
-certutil -delstore "ROOT" serial-number-hex
-```
-
 ## Ubuntu
 ### 添加证书
 ```
