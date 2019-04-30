@@ -21,12 +21,13 @@ var (
 	bCreateCert  = flag.Bool("new", false, "签发证书")
 	bEcc         = flag.Bool("ecc", false, "是否创建ECC类型的证书, 与-c命令搭配使用")
 	sCN          = flag.String("CN", "", "CommonName，证书绑定域名, 与-c命令搭配使用")
+	bPassword    = flag.Bool("p", false, "签发证书的私钥文件是否需要密码保护")
 	sFormat      = flag.String("f", "pkcs1", "私钥文件格式，支持`pkcs1`和`pkcs8`")
 	iDays        = flag.Int("d", 365, "证书有效期, 与-c命令搭配使用")
 )
 
 func showHelp() {
-	fmt.Fprintf(os.Stderr, "Usage: easyCA [-hI] [-new] [-ecc] [-CN commonName] [-d days]\n\nOptions:\n")
+	fmt.Fprintf(os.Stderr, "Usage: easyCA [-hI] [-new] [-ecc] [-p password] [-CN commonName] [-d days]\n\nOptions:\n")
 	flag.PrintDefaults()
 	fmt.Fprintf(os.Stderr, "\nExample:\n")
 	fmt.Fprintf(os.Stderr, "   %-35s%s\n", "easyCA -I", "初始化项目")
@@ -96,9 +97,16 @@ func newCert() error {
 		return err
 	}
 
+	password := ""
+	if bPassword != nil && *bPassword == true {
+		if password, err = getPass("Enter New Key Passphrase: "); err != nil {
+			return err
+		}
+	}
+
 	fileName := WORKDIR + "/issued/" + *sCN + time.Now().Format("-20060102150405-") + uuid.Uuid(8)
 	os.MkdirAll(WORKDIR+"/issued", 0755)
-	if err := k.WritePrivateKey(fileName+".key", "", *sFormat); err != nil {
+	if err := k.WritePrivateKey(fileName+".key", password, *sFormat); err != nil {
 		return err
 	}
 	if err := k.WriteCertificate(fileName + ".crt"); err != nil {
