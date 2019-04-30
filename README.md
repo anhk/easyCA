@@ -1,4 +1,4 @@
-# easyCA
+# EasyCA
 golang语言实现的简易CA
 
 # Usage
