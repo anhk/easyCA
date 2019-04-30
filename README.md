@@ -32,3 +32,45 @@ Enter Key Passphrase for ./pki/private/ca.key:
 创建证书文件: ./pki/issued/www.test.com-20190430174109-3c4ejmqw.crt
 [root❄anhk:easyCA]☭ 
 ```
+
+# 更新CA证书到操作系统【来自互联网】
+
+## MacOS
+### 添加证书
+```
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ~/new-root-certificate.crt
+```
+### 移除证书
+```
+sudo security delete-certificate -c ""
+```
+
+## Windows
+### 添加证书
+```
+certutil -addstore -f "ROOT" new-root-certificate.crt
+```
+### 移除证书
+```
+certutil -delstore "ROOT" serial-number-hex
+```
+
+## Ubuntu
+### 添加证书
+```
+sudo cp foo.crt /usr/local/share/ca-certificates/foo.crt
+sudo update-ca-certificates
+```
+### 移除证书
+```
+sudo rm -fr /usr/local/share/ca-certificates/foo.crt
+sudo update-ca-certificates --fresh
+```
+
+## CentOS
+### 添加证书
+```
+```
+### 移除证书
+```
+```
