@@ -22,6 +22,13 @@ Options:
 Example:
    easyCA -I                          初始化项目
    easyCA -new -CN foo.jdcloud.local  创建CommonName为foo.jdcloud.local的服务器端证书
+```
 
-
+# Example
+```
+[root❄anhk:easyCA]☭ ./easyCA -new -CN www.test.com -ecc  -f pkcs8
+Enter Key Passphrase for ./pki/private/ca.key: 
+创建私钥文件: ./pki/issued/www.test.com-20190430174109-3c4ejmqw.key
+创建证书文件: ./pki/issued/www.test.com-20190430174109-3c4ejmqw.crt
+[root❄anhk:easyCA]☭ 
 ```
