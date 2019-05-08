@@ -18,19 +18,24 @@ Options:
   -h	Show this Help
   -new
     	签发证书
+  -p	签发证书的私钥文件是否需要密码保护
 
 Example:
    easyCA -I -d 3650                  初始化项目
    easyCA -new -CN foo.jdcloud.local  创建CommonName为foo.jdcloud.local的服务器端证书
+
 ```
 
 # Example
 ```
-[root❄anhk:easyCA]☭ ./easyCA -new -CN www.test.com -ecc  -f pkcs8
+[root❄anhk:easyCA]☭ ./easyCA -new -CN www.test.com -ecc -f pkcs8 -p
 Enter Key Passphrase for ./pki/private/ca.key:
-创建私钥文件: ./pki/issued/www.test.com-20190430174109-3c4ejmqw.key
-创建证书文件: ./pki/issued/www.test.com-20190430174109-3c4ejmqw.crt
+Enter New Key Passphrase: 
+Re-Enter New Key Passphrase: 
+创建私钥文件: ./pki/issued/www.test.com-20190430175936-4v5wr8xc.key
+创建证书文件: ./pki/issued/www.test.com-20190430175936-4v5wr8xc.crt
 [root❄anhk:easyCA]☭
+
 ```
 
 # 更新CA证书到操作系统【来自互联网】
