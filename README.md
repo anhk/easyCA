@@ -30,8 +30,8 @@ Example:
 ```
 [root❄anhk:easyCA]☭ ./easyCA -new -CN www.test.com -ecc -f pkcs8 -p
 Enter Key Passphrase for ./pki/private/ca.key:
-Enter New Key Passphrase: 
-Re-Enter New Key Passphrase: 
+Enter New Key Passphrase:
+Re-Enter New Key Passphrase:
 创建私钥文件: ./pki/issued/www.test.com-20190430175936-4v5wr8xc.key
 创建证书文件: ./pki/issued/www.test.com-20190430175936-4v5wr8xc.crt
 [root❄anhk:easyCA]☭
@@ -43,12 +43,12 @@ Re-Enter New Key Passphrase:
 ## Ubuntu
 ### 添加证书
 ```
-sudo cp foo.crt /usr/local/share/ca-certificates/foo.crt
+sudo cp ./pki/ca.crt /usr/local/share/ca-certificates/my-ca.crt
 sudo update-ca-certificates
 ```
 ### 移除证书
 ```
-sudo rm -fr /usr/local/share/ca-certificates/foo.crt
+sudo rm -fr /usr/local/share/ca-certificates/my-ca.crt
 sudo update-ca-certificates --fresh
 ```
 
