@@ -30,7 +30,7 @@ func showHelp() {
 	fmt.Fprintf(os.Stderr, "Usage: easyCA [-hI] [-new] [-ecc] [-p password] [-CN commonName] [-d days]\n\nOptions:\n")
 	flag.PrintDefaults()
 	fmt.Fprintf(os.Stderr, "\nExample:\n")
-	fmt.Fprintf(os.Stderr, "   %-35s%s\n", "easyCA -I", "初始化项目")
+	fmt.Fprintf(os.Stderr, "   %-35s%s\n", "easyCA -I -d 3650", "初始化项目")
 	fmt.Fprintf(os.Stderr, "   %-35s%s\n", "easyCA -new -CN foo.jdcloud.local", "创建CommonName为foo.jdcloud.local的服务器端证书")
 	fmt.Fprintf(os.Stderr, "\n")
 }
