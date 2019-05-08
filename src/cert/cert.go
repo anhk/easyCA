@@ -42,6 +42,18 @@ func (k *KeyPair) GenerateEccKey() (err error) {
 	return nil
 }
 
+func (k *KeyPair) GenerateKey(algo string) error {
+	switch algo {
+	case "rsa":
+		k.GenerateRsaKey()
+	case "ecc":
+		k.GenerateEccKey()
+	default:
+		return errors.New("Invalid algo, only support `rsa` and `ecc`.")
+	}
+	return nil
+}
+
 func (k *KeyPair) WriteEccPrivateKey(path, password string) (err error) {
 	r, ok := k.priv.(*ecdsa.PrivateKey)
 	if ok != true {
@@ -188,13 +200,8 @@ func GenerateSelfSignedCertificate(algo string, isCA bool, sCN string, days int)
 	var err error
 	k := &KeyPair{}
 
-	switch algo {
-	case "rsa":
-		k.GenerateRsaKey()
-	case "ecc":
-		k.GenerateEccKey()
-	default:
-		return nil, errors.New("Invalid algo, only support `rsa` and `ecc`.")
+	if err = k.GenerateKey(algo); err != nil {
+		return nil, err
 	}
 
 	template, err := makeTemplate(isCA, sCN, days)
@@ -221,13 +228,8 @@ func GenerateCASignedCertificate(algo string, sCN string, ca *KeyPair, days int)
 	var err error
 	k := &KeyPair{}
 
-	switch algo {
-	case "rsa":
-		k.GenerateRsaKey()
-	case "ecc":
-		k.GenerateEccKey()
-	default:
-		return nil, errors.New("Invalid algo, only support `rsa` and `ecc`.")
+	if err = k.GenerateKey(algo); err != nil {
+		return nil, err
 	}
 
 	template, err := makeTemplate(false, sCN, days)
