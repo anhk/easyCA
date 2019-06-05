@@ -55,6 +55,8 @@ sudo update-ca-certificates --fresh
 ## CentOS
 ### 添加证书
 ```
+sudo cp ./pki/ca.crt cp /etc/pki/ca-trust/source/anchors
+sudo update-ca-trust 
 ```
 ### 移除证书
 ```
