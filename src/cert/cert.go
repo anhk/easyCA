@@ -275,6 +275,6 @@ func makeTemplate(isCA bool, sCN string, days int) (*x509.Certificate, error) {
 		NotAfter:  time.Now().AddDate(0, 0, days),
 		// see http://golang.org/pkg/crypto/x509/#KeyUsage
 		ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth, x509.ExtKeyUsageServerAuth},
-		KeyUsage:    x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
+		KeyUsage:    x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign | x509.KeyUsageKeyEncipherment,
 	}, nil
 }
