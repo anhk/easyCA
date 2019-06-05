@@ -58,6 +58,7 @@ sudo update-ca-certificates --fresh
 sudo cp ./pki/ca.crt /etc/pki/ca-trust/source/anchors
 sudo update-ca-trust 
 ```
-### 移除证书
+### 恢复可信任域为操作系统初始状态
 ```
+yum check-update ca-certificates; (($?==100)) && yum update ca-certificates || yum reinstall ca-certificates
 ```
