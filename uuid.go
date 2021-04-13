@@ -1,4 +1,4 @@
-package uuid
+package main
 
 import (
 	"crypto/rand"
@@ -12,7 +12,7 @@ var (
 	chLen     = len(character)
 )
 
-func Uuid(size int) string {
+func RandomString(size int) string {
 	buf := make([]byte, size, size)
 	max := big.NewInt(int64(chLen))
 	for i := 0; i < size; i++ {

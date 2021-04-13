@@ -1,4 +1,4 @@
-package cert
+package main
 
 import (
 	"crypto/ecdsa"
@@ -11,7 +11,7 @@ import (
 	"encoding/pem"
 	"errors"
 	"fmt"
-	"gopass"
+	"github.com/anhk/easyCA/gopass"
 	"io/ioutil"
 	"math/big"
 	"os"

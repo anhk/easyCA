@@ -1,14 +1,12 @@
 package main
 
 import (
-	"cert"
 	"errors"
 	"flag"
 	"fmt"
-	"gopass"
+	"github.com/anhk/easyCA/gopass"
 	"os"
 	"time"
-	"uuid"
 )
 
 const (
@@ -56,7 +54,7 @@ func createCA() error {
 		return err
 	}
 
-	k, err := cert.GenerateSelfSignedCertificate("rsa", true, "", 3650)
+	k, err := GenerateSelfSignedCertificate("rsa", true, "", 3650)
 	if err != nil {
 		return err
 	}
@@ -80,7 +78,7 @@ func newCert() error {
 		return fmt.Errorf("Please set `-n CommonName` argument.")
 	}
 
-	ca := &cert.KeyPair{}
+	ca := &KeyPair{}
 	if err := ca.LoadPrivateKey(WORKDIR + "/private/ca.key"); err != nil {
 		return err
 	}
@@ -92,7 +90,7 @@ func newCert() error {
 	if bEcc != nil && *bEcc == true {
 		algo = "ecc"
 	}
-	k, err := cert.GenerateCASignedCertificate(algo, *sCN, ca, *iDays)
+	k, err := GenerateCASignedCertificate(algo, *sCN, ca, *iDays)
 	if err != nil {
 		return err
 	}
@@ -104,7 +102,7 @@ func newCert() error {
 		}
 	}
 
-	fileName := WORKDIR + "/issued/" + *sCN + time.Now().Format("-20060102150405-") + uuid.Uuid(8)
+	fileName := WORKDIR + "/issued/" + *sCN + time.Now().Format("-20060102150405-") + RandomString(8)
 	os.MkdirAll(WORKDIR+"/issued", 0755)
 	if err := k.WritePrivateKey(fileName+".key", password, *sFormat); err != nil {
 		return err
@@ -130,7 +128,7 @@ func initProject() error {
 	} else {
 		if fi.IsDir() {
 			fmt.Fprintf(os.Stderr, "Directory `./pki` is already existed.\nNow, check CA certificate.")
-			ca := &cert.KeyPair{}
+			ca := &KeyPair{}
 			if err := ca.LoadPrivateKey(WORKDIR + "/private/ca.key"); err != nil {
 				return err
 			}
