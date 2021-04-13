@@ -1,11 +1,12 @@
-export GOPATH=$(shell pwd):$(shell pwd)/vendors
+export GOPROXY=https://goproxy.cn,direct
+export GO111MODULE=on
 
 OBJ = easyCA
 
-all: $(OBJ)
+default: $(OBJ)
 
 $(OBJ):
-	cd src && go build -gcflags "-N -l" -o ../$@
+	go build -gcflags "-N -l" -o $@ .
 
 clean:
 	rm -fr $(OBJ)
@@ -14,5 +15,5 @@ clean:
 
 dep:
 	echo -n "$(OBJ):" > .deps
-	find src -name '*.go' | awk '{print $$0 " \\"}' >> .deps
+	find . -name '*.go' | awk '{print $$0 " \\"}' >> .deps
 	echo "" >> .deps
